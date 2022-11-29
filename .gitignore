@@ -132,6 +132,10 @@ wandb/
 *.lmdb/
 *.pkl
 *.pt
+*.dat
 .idea
 cache
 pretrained_models/seg.pth
+
+# ignore DS_Store
+.DS_Store
