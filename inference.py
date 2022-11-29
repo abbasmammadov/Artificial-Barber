@@ -36,6 +36,12 @@ def main(args):
     im_path3 = os.path.join(args.input_dir, 'appearance', args.im_path3)
 
     im_set = {im_path1, im_path2, im_path3}
+
+    # from os import listdir
+    # path_temp = '/home/abbasmammadov/Artificial-Barber/img/appearance'
+    # im_set = set([os.path.join(path_temp, f) for f in listdir(path_temp) if os.path.isfile(os.path.join(path_temp, f))])
+    # print(im_set)
+    # return
     ii2s.invert_images_in_W([*im_set])
     ii2s.invert_images_in_FS([*im_set])
 
@@ -59,7 +65,7 @@ if __name__ == "__main__":
     # I/O arguments
     parser.add_argument('--input_dir', type=str, default='img',
                         help='The directory of the images to be inverted')
-    parser.add_argument('--output_dir', type=str, default='output',
+    parser.add_argument('--output_dir', type=str, default='output__',
                         help='The directory to save the latent codes and inversion images')
     parser.add_argument('--im_path1', type=str, default='16.png', help='Identity image')
     parser.add_argument('--im_path2', type=str, default='15.png', help='Structure image')
