@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+wandb/
+*.lmdb/
+*.pkl
+*.pt
+.idea
+cache
+pretrained_models/seg.pth
