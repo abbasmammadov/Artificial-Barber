@@ -5,8 +5,10 @@ import dlib
 from torchvision import transforms
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-def get_face(image_path, detector, output_size, transform_size=4096):
-    pred_path = os.path.join('/'.join(ROOT.split('/')[:]) + '/shape_predictor_68_face_landmarks.dat')
+print(ROOT)
+def get_face(image_path, detector, output_size, transform_size=4096, save_path=None):
+    # pred_path = os.path.join('/'.join(ROOT.split('/')[:]) + '/shape_predictor_68_face_landmarks.dat')
+    pred_path = f'{ROOT}/shape_predictor_68_face_landmarks.dat'
     predictor = dlib.shape_predictor(pred_path)
     # print(image_path)
     img = dlib.load_rgb_image(image_path)
@@ -19,10 +21,9 @@ def get_face(image_path, detector, output_size, transform_size=4096):
     lm_outer_lip = lm[48:60]
 
     # get the center of the eyes and the mouth
-    left_eye = np.mean(lm_left_eye, axis=0)
-    right_eye = np.mean(lm_right_eye, axis=0)
+    left_eye = lm_left_eye.mean(axis=0)
+    right_eye = lm_right_eye.mean(axis=0)
     average_eye = (left_eye + right_eye) / 2
-    # eye_to_eye = left_eye - right_eye
     eye_to_eye = right_eye - left_eye
 
     left_mouth = lm_outer_lip[0]
@@ -32,12 +33,10 @@ def get_face(image_path, detector, output_size, transform_size=4096):
     eye_to_mouth = average_mouth - average_eye
 
         # Choose oriented crop rectangle.
-    x = eye_to_eye - np.flipud(eye_to_mouth) * [-1, 1]
-    # x = eye_to_eye - eye_to_mouth * [-1, 1]
+    x = eye_to_eye - eye_to_mouth[::-1] * [-1, 1]
     x /= np.hypot(*x)
     x *= max(np.hypot(*eye_to_eye) * 2.0, np.hypot(*eye_to_mouth) * 1.8)
-    y = np.flipud(x) * [-1, 1]
-    # y = x * [-1, 1]
+    y = x[::-1] * [-1, 1]
     c = average_eye + eye_to_mouth * 0.1
     quad = np.stack([c - x - y, c - x + y, c + x + y, c + x - y])
     qsize = np.hypot(*x) * 2
@@ -74,7 +73,9 @@ def get_face(image_path, detector, output_size, transform_size=4096):
     target_face = transforms.ToPILImage()(face_tensor_lr)
     if (1024//output_size) != 1:
         target_face = target_face.resize((output_size, output_size), Image.LANCZOS)
-    target_face.save(image_path + '_face.png')
+    
+    if save_path:
+        target_face.save(save_path)
     return target_face # this is a PIL image
 
-get_face('ggggg.png', dlib.get_frontal_face_detector(), 1024)
+# get_face('ggggg.png', dlib.get_frontal_face_detector(), 1024)
