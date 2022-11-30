@@ -31,9 +31,9 @@ def main(args):
     # im_path2 = 'input/face/15.png'
     # im_path3 = 'input/face/117.png'
 
-    im_path1 = os.path.join(args.input_dir, 'input', args.im_path1)
-    im_path2 = os.path.join(args.input_dir, 'structure', args.im_path2)
-    im_path3 = os.path.join(args.input_dir, 'appearance', args.im_path3)
+    im_path1 = os.path.join(args.im_path1)
+    im_path2 = os.path.join(args.im_path2)
+    im_path3 = os.path.join(args.im_path3)
 
     im_set = {im_path1, im_path2, im_path3}
 
@@ -67,9 +67,9 @@ if __name__ == "__main__":
                         help='The directory of the images to be inverted')
     parser.add_argument('--output_dir', type=str, default='output',
                         help='The directory to save the latent codes and inversion images')
-    parser.add_argument('--im_path1', type=str, default='16.png', help='Identity image')
-    parser.add_argument('--im_path2', type=str, default='15.png', help='Structure image')
-    parser.add_argument('--im_path3', type=str, default='117.png', help='Appearance image')
+    parser.add_argument('--im_path1', type=str, default='img/input/anar.png', help='Identity image')
+    parser.add_argument('--im_path2', type=str, default='img/structure/bob.png', help='Structure image')
+    parser.add_argument('--im_path3', type=str, default='img/appearance/blue.png', help='Appearance image')
     parser.add_argument('--sign', type=str, default='realistic', help='realistic or fidelity results')
     parser.add_argument('--smooth', type=int, default=5, help='dilation and erosion parameter')
     parser.add_argument('--check_exist_dir', type=str, default='pre_processed', help='already embedded or not')
