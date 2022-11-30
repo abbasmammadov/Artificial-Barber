@@ -3,12 +3,19 @@ from PIL import Image
 import os
 import dlib
 from torchvision import transforms
+from utils.drive import open_url
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 print(ROOT)
 def get_face(image_path, detector, output_size, transform_size=4096, save_path=None):
     # pred_path = os.path.join('/'.join(ROOT.split('/')[:]) + '/shape_predictor_68_face_landmarks.dat')
-    pred_path = f'{ROOT}/shape_predictor_68_face_landmarks.dat'
+    pred_path_dir = f'{ROOT}/pretrained_models/' 
+    pred_path = pred_path_dir + 'shape_predictor_68_face_landmarks.dat'
+    # check whether the file exists
+    if not os.path.exists(pred_path):
+        print('Downloading the pretrained model...')
+        pretrained_face_model = open_url("https://drive.google.com/uc?id=1huhv8PYpNNKbGCLOaYUjOgR1pY5pmbJx", cache_dir=pred_path_dir, return_path=True)
+        os.rename(pretrained_face_model, pred_path)
     predictor = dlib.shape_predictor(pred_path)
     # print(image_path)
     img = dlib.load_rgb_image(image_path)
@@ -78,4 +85,4 @@ def get_face(image_path, detector, output_size, transform_size=4096, save_path=N
         target_face.save(save_path)
     return target_face # this is a PIL image
 
-# get_face('ggggg.png', dlib.get_frontal_face_detector(), 1024)
+get_face('90.png', dlib.get_frontal_face_detector(), 1024, save_path='90_face.png')
