@@ -11,6 +11,7 @@ from PIL import Image
 from face import get_face
 import warnings
 # ignore warnings
+import torch
 warnings.filterwarnings("ignore")
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -58,7 +59,7 @@ class MainWindow(QMainWindow):
         self.image_layout.addWidget(self.raw_image)
         self.image_layout.addWidget(self.result_image)
         self.main_layout.addLayout(self.image_layout)
-        sample_image_path = ROOT + '/img/additionals/resized_guidelines_black.png'
+        sample_image_path = ROOT + '/img/additional/guidelines.png'
         self.upload_button = QPushButton("Upload your picture")
         self.upload_button.setToolTip(f'<br><img src="{sample_image_path}">')
         self.upload_button.setStatusTip("Please upload only the image of 1 person")
@@ -106,7 +107,7 @@ class MainWindow(QMainWindow):
         self.color_title = QLabel('Choose the color of your target hair')
         self.color_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.color_title.setStyleSheet("font-size: 15px; color: white; background-color: grey")
-        self.color_title.setFixedSize(400, 30)
+        self.color_title.setFixedSize(350, 30)
         # self.color_title.setWordWrap(True)
         
         self.colors_and_title_layout.addWidget(self.color_title)
@@ -152,6 +153,7 @@ class MainWindow(QMainWindow):
             self.color_button = QPushButton(color)
             self.color_pushs[f'{color}_push'] = self.color_button
             self.color_button.setCheckable(True)
+            self.color_button.setToolTip(f'<br><img src="{ROOT}/img/appearance/{self.colors2_and_images[color]}" width="256" height="256">')
             self.color_button.clicked.connect(lambda state, color=color: self.select_color(state, color=color))
             # self.color_button.setStyleSheet("QPushButton:checked {background-color: %s; color: white; font-size: 15px; font-weight: bold}" % color)
             self.color_button.setStyleSheet(self.color_style_sheet(self.colors2_colors[i-1]))
@@ -168,7 +170,7 @@ class MainWindow(QMainWindow):
         self.custom_button = ColorDialog()
         self.custom_button.currentColorChanged.connect(self.onCurrentColorChanged)
         self.custom_push_and_label = QVBoxLayout()
-        self.custom_color_label = QLabel('Custom Color')
+        self.custom_color_label = QLabel('Custom Color Image')
         self.custom_color_label.setFixedSize(150, 30)
         self.custom_push_and_label.addWidget(self.custom_color_label)
         self.onCurrentColorChanged(self.custom_button.currentColor())
@@ -178,13 +180,13 @@ class MainWindow(QMainWindow):
         # self.status_bar2.showMessage('Custom or default color')
         # self.status_bar2.setStyleSheet("background-color: grey; color: white; font-size: 15px")
         # self.status_bar2.setFixedSize(400, 50)
-        self.custom_upload_button = QPushButton('Custom color')
+        self.custom_upload_button = QPushButton('Custom Color Image')
         self.custom_upload_button.setFixedSize(150, 30)
         self.custom_push_and_label.addWidget(self.custom_upload_button)
-        self.customs_layout.addWidget(self.custom_button)
         self.customs_layout.addLayout(self.custom_push_and_label)
         iscolor = True
         self.custom_upload_button.clicked.connect(lambda state, iscolor=iscolor: self.custom_upload(state, iscolor=iscolor))
+        self.customs_layout.addWidget(self.custom_button)
         self.colors_and_custom_layout.addLayout(self.customs_layout)#, alignment=Qt.AlignmentFlag.AlignCenter)
         # self.colors_and_custom_layout.addWidget(self.custom_color_label, alignment=Qt.AlignmentFlag.AlignCenter)
         # self.colors_and_custom_layout.addWidget(self.status_bar2, alignment=Qt.AlignmentFlag.AlignCenter)
@@ -226,7 +228,7 @@ class MainWindow(QMainWindow):
         self.style_layout.addLayout(self.style1_layout)
         self.style_layout.addLayout(self.style2_layout)
         iscolor = False
-        self.custom_style = QPushButton('Custom style')
+        self.custom_style = QPushButton('Custom Style Image')
         self.custom_style.clicked.connect(lambda state, iscolor=iscolor: self.custom_upload(state, iscolor=iscolor))
         # self.custom_style.clicked.connect(lambda state: self.custom_upload(state, iscolor=iscolor))
         self.custom_style.setFixedSize(150, 30)
@@ -268,11 +270,15 @@ class MainWindow(QMainWindow):
         for col, button in self.color_pushs.items():
             button.setCheckable(state == 0)
             if button.isCheckable():
-                button.setStyleSheet(self.color_style_sheet(col[:-5]))
+                col = col[:-5]
+                if col in self.colors2:
+                    button.setStyleSheet(self.color_style_sheet(self.colors2_colors[self.colors2.index(col)-1]))
+                else:
+                    button.setStyleSheet(self.color_style_sheet(col))
             else:
                 button.setStyleSheet("background-color: black")
     def generate(self):
-        print('image_info', self.images_info)
+        # print('image_info', self.images_info)
         if None in self.images_info.values():
             nons = [k for k, v in self.images_info.items() if v is None]
             nons_message = 'You didn\'t select ' + ', '.join(nons)
@@ -283,7 +289,16 @@ class MainWindow(QMainWindow):
             self.progress_bar.showMessage('Generating in progress...')
             self.progress_bar.setStyleSheet("font-size: 15px; color: white; background-color: purple")
             self.progress_bar.setFixedSize(250, 50)
-            pass
+            # let's exectute command using subprocess
+            import subprocess
+            device = 'cpu' if torch.cuda.is_available() else 'cpu'
+            if self.images_info['time_or_efficiency'] == 'time':
+                W_step_size, FS_step_size = 250, 250
+            else:
+                W_step_size, FS_step_size = 1100, 1100
+            command = f"python3 inference.py --im_path1 {self.images_info['image_path']} --im_path2 {self.images_info['target_hair_style']} --im_path3 {self.images_info['target_hair_color']} --W_steps {W_step_size} --FS_steps {FS_step_size} --device {device}"
+            subprocess.call(command, shell=True)
+            
             
     def show_time_state(self, state):
         if state == 2:
