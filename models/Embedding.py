@@ -101,10 +101,10 @@ class Embedding(nn.Module):
         ibar = tqdm(self.dataloader, desc='Images')
         for ref_im_H, ref_im_L, ref_name in ibar:
             
-            output_dir_for_W = os.path.join(self.opts.output_dir, 'W+')
-            os.makedirs(output_dir_for_W, exist_ok=True)
+            check_exist_dir_for_W = os.path.join(self.opts.check_exist_dir, 'W+')
+            # os.makedirs(check_exist_dir_for_W, exist_ok=True)
 
-            if path.exists(os.path.join(output_dir_for_W, f'{ref_name[0]}.npy')):
+            if path.exists(os.path.join(check_exist_dir_for_W, f'{ref_name[0]}.npy')):
                 print(f'{ref_name[0]}.npy already exists, skipping')
                 continue
 
@@ -145,10 +145,10 @@ class Embedding(nn.Module):
         ibar = tqdm(self.dataloader, desc='Images')
         for ref_im_H, ref_im_L, ref_name in ibar:
 
-            output_dir_for_FS = os.path.join(self.opts.output_dir, 'FS')
-            os.makedirs(output_dir_for_FS, exist_ok=True)
+            check_exist_dir_for_FS = os.path.join(self.opts.check_exist_dir, 'FS')
+            # os.makedirs(check_exist_dir_for_FS, exist_ok=True)
 
-            if path.exists(os.path.join(output_dir_for_FS, f'{ref_name[0]}.npz')):
+            if path.exists(os.path.join(check_exist_dir_for_FS, f'{ref_name[0]}.npz')):
                 print(f'{ref_name[0]}.npz already exists, skipping')
                 continue
 

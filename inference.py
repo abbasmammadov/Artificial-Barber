@@ -65,13 +65,14 @@ if __name__ == "__main__":
     # I/O arguments
     parser.add_argument('--input_dir', type=str, default='img',
                         help='The directory of the images to be inverted')
-    parser.add_argument('--output_dir', type=str, default='output__',
+    parser.add_argument('--output_dir', type=str, default='output',
                         help='The directory to save the latent codes and inversion images')
     parser.add_argument('--im_path1', type=str, default='16.png', help='Identity image')
     parser.add_argument('--im_path2', type=str, default='15.png', help='Structure image')
     parser.add_argument('--im_path3', type=str, default='117.png', help='Appearance image')
     parser.add_argument('--sign', type=str, default='realistic', help='realistic or fidelity results')
     parser.add_argument('--smooth', type=int, default=5, help='dilation and erosion parameter')
+    parser.add_argument('--check_exist_dir', type=str, default='pre_processed', help='already embedded or not')
 
     # StyleGAN2 setting
     parser.add_argument('--size', type=int, default=1024)

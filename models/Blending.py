@@ -85,7 +85,11 @@ class Blending(nn.Module):
         opt_blend, interpolation_latent = self.setup_blend_optimizer()
         latent_1, latent_F_mixed = load_FS_latent(os.path.join(output_dir, 'Align_{}'.format(sign),
                                             '{}_{}.npz'.format(im_name_1, im_name_3)),device)
-        latent_3, _ = load_FS_latent(os.path.join(output_dir, 'FS',
+        if im_name_3 in ['afro', 'bob', 'curly', 'fade', 'straight', 'wavy', 'blond', 'blue', 'brown', 'double', 'ppb', 'red', 'rainbow', 'rainbow2']:
+            latent_3, _ = load_FS_latent(os.path.join(self.opts.check_exist_dir, 'FS',
+                                            '{}.npz'.format(im_name_3)), device)
+        else:
+            latent_3, _ = load_FS_latent(os.path.join(output_dir, 'FS',
                                             '{}.npz'.format(im_name_3)), device)
 
         with torch.no_grad():

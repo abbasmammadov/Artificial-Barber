@@ -136,6 +136,7 @@ class Alignment(nn.Module):
 
         ############################################
 
+        
         target_mask = torch.where(OB_region.to(device).unsqueeze(0), torch.zeros_like(target_mask), target_mask)
         optimizer_align, latent_align = self.setup_align_optimizer()
         latent_end = latent_align[:, 6:, :].clone().detach()
@@ -234,19 +235,13 @@ class Alignment(nn.Module):
         im_name_2 = os.path.splitext(os.path.basename(img_path2))[0]
 
         latent_FS_path_1 = os.path.join(output_dir, 'FS', f'{im_name_1}.npz')
-        if im_name_2 in ['afro', 'bob', 'curly', 'fade', 'straight', 'wavy', 'blond', 'blue', 'brown', 'double', 'ppb', 'red', 'rainbow', 'rainbow2']:
-            latent_FS_path_2 = os.path.join(self.opts.check_exist_dir, 'FS', f'{im_name_2}.npz')
-        else:
-            latent_FS_path_2 = os.path.join(output_dir, 'FS', f'{im_name_2}.npz')
+        latent_FS_path_2 = os.path.join(output_dir, 'FS', f'{im_name_2}.npz')
 
         latent_1, latent_F_1 = load_FS_latent(latent_FS_path_1, device)
         latent_2, latent_F_2 = load_FS_latent(latent_FS_path_2, device)
 
         latent_W_path_1 = os.path.join(output_dir, 'W+', f'{im_name_1}.npy')
-        if im_name_2 in ['afro', 'bob', 'curly', 'fade', 'straight', 'wavy', 'blond', 'blue', 'brown', 'double', 'ppb', 'red', 'rainbow', 'rainbow2']:
-            latent_W_path_2 = os.path.join(self.opts.check_exist_dir, 'W+', f'{im_name_2}.npy')
-        else:
-            latent_W_path_2 = os.path.join(output_dir, 'W+', f'{im_name_2}.npy')
+        latent_W_path_2 = os.path.join(output_dir, 'W+', f'{im_name_2}.npy')
 
         optimizer_align, latent_align_1 = self.setup_align_optimizer(latent_W_path_1)
 
