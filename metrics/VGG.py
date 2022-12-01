@@ -51,7 +51,7 @@ class VGGLoss(nn.Module):
         return loss
     
 # You can append as many input and embedded images as you want 
-# and calculate the PSNR score using the code below
+# and calculate the VGG Loss using the code below
 import os
 from PIL import Image
 import torchvision.transforms as transforms
