@@ -227,7 +227,7 @@ class LPIPS(ContentLoss):
                          normalize_features=True)
 
 # You can append as many input and embedded images as you want 
-# and calculate the FID score using the code below
+# and calculate the LPIPS measurement using the code below
 
 import os
 from PIL import Image
