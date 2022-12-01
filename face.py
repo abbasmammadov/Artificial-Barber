@@ -85,4 +85,4 @@ def get_face(image_path, detector, output_size, transform_size=4096, save_path=N
         target_face.save(save_path)
     return target_face # this is a PIL image
 
-get_face('90.png', dlib.get_frontal_face_detector(), 1024, save_path='90_face.png')
+# get_face('high_res.png', dlib.get_frontal_face_detector(), 1024, save_path='high_res_face.png')
