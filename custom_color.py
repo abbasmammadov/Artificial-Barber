@@ -1,17 +1,14 @@
 import cv2
 import numpy as np
 import colorsys
-import os
-
-
-img = cv2.imread('img/custom/custom.png') # 1024x1024
-mask = cv2.imread('img/custom/mask.png') # 512x512
-
-# Resize mask to 1024x1024
-mask = cv2.resize(mask, (1024, 1024), interpolation=cv2.INTER_NEAREST)
-
 
 def custom_color(r, g, b, w1=0.225, w2=0.775, w3=1.0, w4=0.0):
+
+    img = cv2.imread('img/custom/custom.png') # 1024x1024
+    mask = cv2.imread('img/custom/mask.png') # 512x512
+    # Resize mask to 1024x1024
+    mask = cv2.resize(mask, (1024, 1024), interpolation=cv2.INTER_NEAREST)
+
     # Create a new image
     new_img = np.zeros_like(img)
     hsv_goal = colorsys.rgb_to_hsv(r, g, b)
@@ -38,15 +35,7 @@ def custom_color(r, g, b, w1=0.225, w2=0.775, w3=1.0, w4=0.0):
     # Save the new image
     cv2.imwrite('img/custom/new_hair_{}_{}_{}.png'.format(r, g, b), new_img)
 
-# custom_color(255, 165, 0)
-# custom_color(255, 0, 0)
-# custom_color(0, 255, 0)
 # custom_color(0, 0, 255)
-# custom_color(255, 255, 0)
-# custom_color(255, 0, 255)
-# custom_color(0, 255, 255)
-# custom_color(0, 165, 255)
-
 
 
 # Lets try some colors ---- GRID SEARCH can be done below
