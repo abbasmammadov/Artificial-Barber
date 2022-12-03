@@ -4,7 +4,7 @@ from PyQt6.QtMultimedia import QMediaPlayer
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from PyQt6.QtWidgets import (QApplication, QFileDialog, QHBoxLayout, QLabel, QColorDialog,
         QPushButton, QCheckBox, QProgressBar, QSizePolicy, QSlider, QStyle, QVBoxLayout, QWidget, QStatusBar, QMainWindow, QLineEdit)
-
+from custom_color import custom_color
 import os
 import dlib 
 from PIL import Image
@@ -264,7 +264,9 @@ class MainWindow(QMainWindow):
         self.custom_color_label.setStyleSheet(f"background-color: {color.name()}; color: white; font-size: 15px")
         if self.use_custom_color.isChecked():
             # Operations to do when the custom color is selected
-            pass
+            r, g, b = color.getRgb()[:3]
+            custom_color(b, g, r)
+            self.images_info['target_hair_color'] = f'img/custom/new_hair_{b}_{g}_{r}.png'
         
     def using_custom_color(self, state):
         for col, button in self.color_pushs.items():
@@ -291,7 +293,7 @@ class MainWindow(QMainWindow):
             self.progress_bar.setFixedSize(250, 50)
             # let's exectute command using subprocess
             import subprocess
-            device = 'cpu' if torch.cuda.is_available() else 'cpu'
+            device = 'cuda' if torch.cuda.is_available() else 'cpu'
             if self.images_info['time_or_efficiency'] == 'time':
                 W_step_size, FS_step_size = 250, 200
             else:
@@ -300,7 +302,7 @@ class MainWindow(QMainWindow):
             subprocess.call(command, shell=True)
 
             # let's show the generated image in the resul_image
-            result_image_path = f"output/{self.images_info['image_path'].split('/')[-1].split('.')[0]}_{self.images_info['target_hair_style'].split('/')[-1].split('.')[0]}_{self.images_info['target_hair_color'].split('/')[-1].split('.')[0]}.png"
+            result_image_path = f"output/{self.images_info['image_path'].split('/')[-1].split('.')[0]}_{self.images_info['target_hair_style'].split('/')[-1].split('.')[0]}_{self.images_info['target_hair_color'].split('/')[-1].split('.')[0]}_realistic.png"
             self.result_image.setPixmap(QPixmap(result_image_path))
             
             
