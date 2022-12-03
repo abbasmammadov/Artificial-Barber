@@ -1,0 +1,17 @@
+# Artifical-Barber's requirements
+# Usage: pip install -r requirements.txt
+
+numpy>=1.23.5
+cmake>=3.25.4
+dlib>=19.24.0
+opencv-python>=4.6.0.66
+Pillow>=9.3.0
+requests>=2.28.1
+scipy>=1.9.3
+torch>=1.7.1  
+torchvision>=0.8.2
+tqdm>=4.64.1
+gdown>=4.5.4
+scikit-image>=0.19.3
+ninja>=1.11.1
+ipython  # interactive notebook
