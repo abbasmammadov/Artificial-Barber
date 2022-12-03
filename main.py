@@ -293,9 +293,9 @@ class MainWindow(QMainWindow):
             import subprocess
             device = 'cpu' if torch.cuda.is_available() else 'cpu'
             if self.images_info['time_or_efficiency'] == 'time':
-                W_step_size, FS_step_size = 250, 250
+                W_step_size, FS_step_size = 250, 200
             else:
-                W_step_size, FS_step_size = 1100, 1100
+                W_step_size, FS_step_size = 1100, 250
             command = f"python3 inference.py --im_path1 {self.images_info['image_path']} --im_path2 {self.images_info['target_hair_style']} --im_path3 {self.images_info['target_hair_color']} --W_steps {W_step_size} --FS_steps {FS_step_size} --device {device}"
             subprocess.call(command, shell=True)
             
