@@ -80,12 +80,12 @@ class MainWindow(QMainWindow):
         # self.choose_model_type = QLabel('Choose the type of the model')
         # self.choose_model_type.setAlignment(Qt.AlignmentFlag.AlignCenter)
         # self.choose_model_type.setFixedSize(200, 50)
-        self.time_efficient = QCheckBox('Time Efficient')
+        self.time_efficient = QCheckBox('Fast Inference')
         self.time_efficient.setStyleSheet("font-size: 15px")
         self.time_efficient.setFixedSize(150, 50)
         # self.time_efficient.setChecked(True)
         
-        self.performance_efficient = QCheckBox('Performance Efficient')
+        self.performance_efficient = QCheckBox('Best Quality')
         self.performance_efficient.setStyleSheet("font-size: 15px")
         self.performance_efficient.setFixedSize(200, 50)
         # self.performance_efficient.setChecked(True)
@@ -298,6 +298,10 @@ class MainWindow(QMainWindow):
                 W_step_size, FS_step_size = 1100, 250
             command = f"python3 inference.py --im_path1 {self.images_info['image_path']} --im_path2 {self.images_info['target_hair_style']} --im_path3 {self.images_info['target_hair_color']} --W_steps {W_step_size} --FS_steps {FS_step_size} --device {device}"
             subprocess.call(command, shell=True)
+
+            # let's show the generated image in the resul_image
+            result_image_path = f"output/{self.images_info['image_path'].split('/')[-1].split('.')[0]}_{self.images_info['target_hair_style'].split('/')[-1].split('.')[0]}_{self.images_info['target_hair_color'].split('/')[-1].split('.')[0]}.png"
+            self.result_image.setPixmap(QPixmap(result_image_path))
             
             
     def show_time_state(self, state):
