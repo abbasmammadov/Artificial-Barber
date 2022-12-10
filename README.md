@@ -15,9 +15,11 @@ pip install -r requirements.txt  # install all the required dependencies
 ```
 
 ## Architectural Details
-- Our model is built on Improved version of StyleGAN2. However, since the original model is quite heavy, it has been very hard to bring the implementation down to a product level.
+- Our model is built on improved version of StyleGAN2. However, since the original model is quite heavy, it has been very hard to bring the implementation down to a product level.
 - Hence, we have made an improved preprocessing and deployed our model on a Graphical User Interface.
 - If you are curious about our implementation, be sure to check our [paper](https://www.github.com/abbasmammadov)
+
+**Note**: Please make sure that your device is equipped with NVIDIA GPU and CUDA CuDNN
 
 ## Inference
 
