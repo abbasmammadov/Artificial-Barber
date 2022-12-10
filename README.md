@@ -22,9 +22,9 @@ To try our model with your own choice of images we provided 2 options
 We recommend using this option for inference, especially for those who are unfamiliar with linux and bash commands. 
 
 As shown below, our GUI is easy to use and provides users variety of options interms of choosing target color and style, as well as inference speed.
-original image here
-* Run ``python main.py`` and upload your input image (from any directory). Please check whether your image fulfills the requirements shown below
 <img src='img/additional/guidelines.png' width=500 height=400>
+* Run ``python main.py`` and upload your input image (from any directory). Please check whether your image fulfills the requirements shown below
+<img src='img/additional/GUI_with_original_image.png' width=400 height=400>
 
 * Then our GUI automatically runs the ``face.py`` code, and performs face-alignment. 
 * Check whether to use the "fast-inference" or the "Best Quality" option. Fast Inference runs lighter models to achieve results as fast as possible, compromising quality, whereas "Best Quality" ensures to yield best results, but takes relatively longer time to process.
@@ -42,7 +42,8 @@ original image here
   Then all you need to do is, pressing the "Generate" button and see the magic!!
   
   After the result is done, you will see an output which looks like this.
-  result image here
+  
+  <img src='img/additional/GUI_with_result.png' width=400 height=400>
  
  
 ### Using Terminal </Summary>
