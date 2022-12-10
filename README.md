@@ -30,7 +30,7 @@ We recommend using this option for inference, especially for those who are unfam
 
 As shown below, our GUI is easy to use and provides users variety of options interms of choosing target color and style, as well as inference speed.
 
-<img src='img/additional/guidelines.png' width=400 height=300>
+Please upload an image containing only 1 person, otherwise the interface automatically rejects the image
 
 * Run ``python main.py`` and upload your input image (from any directory). Please check whether your image fulfills the requirements shown below
 <img src='img/additional/GUI_with_original_image.png' width=400 height=400>
