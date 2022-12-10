@@ -14,6 +14,11 @@ cd Artificial-Barber
 pip install -r requirements.txt  # install all the required dependencies
 ```
 
+## Architectural Details
+- Our model is built on Improved version of StyleGAN2. However, since the original model is quite heavy, it has been very hard to bring the implementation down to a product level.
+- Hence, we have made an improved preprocessing and deployed our model on a Graphical User Interface.
+- If you are curious about our implementation, be sure to check our [paper](https://www.github.com/abbasmammadov)
+
 ## Inference
 
 To try our model with your own choice of images we provided 2 options 
@@ -22,7 +27,9 @@ To try our model with your own choice of images we provided 2 options
 We recommend using this option for inference, especially for those who are unfamiliar with linux and bash commands. 
 
 As shown below, our GUI is easy to use and provides users variety of options interms of choosing target color and style, as well as inference speed.
-<img src='img/additional/guidelines.png' width=500 height=400>
+
+<img src='img/additional/guidelines.png' width=400 height=300>
+
 * Run ``python main.py`` and upload your input image (from any directory). Please check whether your image fulfills the requirements shown below
 <img src='img/additional/GUI_with_original_image.png' width=400 height=400>
 
@@ -46,7 +53,7 @@ As shown below, our GUI is easy to use and provides users variety of options int
   <img src='img/additional/GUI_with_result.png' width=400 height=400>
  
  
-### Using Terminal </Summary>
+### Using Terminal
 - If you prefer using the terminal, please follow the steps given below
 
 * Please make sure that the input image is placed in the same directory with ``face.py``. Then execute 
@@ -61,4 +68,9 @@ As shown below, our GUI is easy to use and provides users variety of options int
 **Note**: the model takes the path of the images with your target color ***relative to the*** ``img/appearance/`` ***directory*** and the path of the image with your target style ***relative to the*** ``img/structure/`` ***directory***. Hence, if you want to use your own image as a target color or style, please make sure to put your images with your taret color and target style in the directories ``img/appearance/`` and ``img/structure/`` respectively. 
 
 Then the result output and its mask will be saved to your output path folder. 
+
+## Further Exploration
+If you feel adventurous, check out the following official papers for a foundation on StyleGAN, and StyleGAN2.
+  * [A style-based generator architecture for generative adversarial networks](https://arxiv.org/abs/1812.04948)
+  * [Analyzing and improving the image quality of StyleGAN.](https://arxiv.org/abs/1912.04958)
  
