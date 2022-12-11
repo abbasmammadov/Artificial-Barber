@@ -17,7 +17,7 @@ pip install -r requirements.txt  # install all the required dependencies
 ## Architectural Details
 - Our model is built on improved version of StyleGAN2. However, since the original model is quite heavy, it has been very hard to bring the implementation down to a product level.
 - Hence, we have made an improved preprocessing and deployed our model on a Graphical User Interface.
-- If you are curious about our implementation, be sure to check our [paper](https://www.github.com/abbasmammadov)
+- If you are curious about our implementation, be sure to check our [paper](https://drive.google.com/file/d/12GPHzPwf9EU2P8HW8YvMymBnooBv6oKc/view?usp=sharing)
 
 **Note**: Please make sure that your device is equipped with NVIDIA GPU and CUDA CuDNN
 
@@ -37,10 +37,10 @@ Please upload an image containing only 1 person, otherwise the interface automat
 
 * Then our GUI automatically runs the ``face.py`` code, and performs face-alignment. 
 * Check whether to use the "fast-inference" or the "Best Quality" option. Fast Inference runs lighter models to achieve results as fast as possible, compromising quality, whereas "Best Quality" ensures to yield best results, but takes relatively longer time to process.
-* If you see a success image, move to selecting the color and style of your choice
+* If you see a success message, move to selecting the color and style of your choice
   ##### Options Provided To choose your target color
   - You can choose either simple colors from the options in the "basic" category, or combination of colors from our "combo" option
-  - #### As an another option, we provided a color palette where you can select your desired customized color.
+  - #### As an another option, we provided a color palette where you can select your desired customized color with our novel idea.
   **Note**: Please make sure to check the "Use custom color" option to use this option.
   - Moreover using the "Custom color image" you can upload an image of your choice and our model converts to the hair color of that image
   
@@ -67,7 +67,6 @@ Please upload an image containing only 1 person, otherwise the interface automat
 ```bash 
   python inference.py --im_path1 {path_of_your_input_image} --im_path2 {path_of_the_image_with_your_target_style} --im_path3 {path_of_the_image_with_your_target_color} --output_dir {desired_path_to_store_output_images_and_their_masks}
 ```
-**Note**: the model takes the path of the images with your target color ***relative to the*** ``img/appearance/`` ***directory*** and the path of the image with your target style ***relative to the*** ``img/structure/`` ***directory***. Hence, if you want to use your own image as a target color or style, please make sure to put your images with your taret color and target style in the directories ``img/appearance/`` and ``img/structure/`` respectively. 
 
 Then the result output and its mask will be saved to your output path folder. 
 
