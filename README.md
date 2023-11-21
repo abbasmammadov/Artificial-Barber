@@ -2,6 +2,8 @@
 
 Hair Style and Color changing using improved version of StyleGAN2, deployed on interactive Graphical User Interface (GUI) with PyQt.
 
+## Update (21/11/2023)
+Paper accepted to the **Korea Software Congress (KSC) 2023**, _Oral Session_
 
 ## Setup
 
@@ -69,6 +71,14 @@ Please upload an image containing only 1 person, otherwise the interface automat
 ```
 
 Then the result output and its mask will be saved to your output path folder. 
+
+## Novel Contributions
+* Fast Inference with better parameter tuning and pre-processing
+* Availability of Custom Color
+* Deployment through Graphical User Interface
+
+## Acknowledgement
+This code is based on [Barbershop](https://github.com/ZPdesu/Barbershop).
 
 ## Further Exploration
 If you feel adventurous, check out the following official papers for a foundation on StyleGAN, and StyleGAN2.
