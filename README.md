@@ -2,6 +2,10 @@
 
 Hair Style and Color changing using improved version of StyleGAN2, deployed on interactive Graphical User Interface (GUI) with PyQt.
 
+## Update (16/02/2024)
+- Paper link at **Korea Software Congress (KSC) 2023** is provided as https://dbpia.co.kr/pdf/pdfView.do?nodeId=NODE11705141. <br>
+- BibTeX is added.
+
 ## Update (21/11/2023)
 Paper accepted to the **Korea Software Congress (KSC) 2023**, _Oral Session_
 
@@ -76,6 +80,13 @@ Then the result output and its mask will be saved to your output path folder.
 * Fast Inference with better parameter tuning and pre-processing
 * Availability of Custom Color
 * Deployment through Graphical User Interface
+
+## Citation
+If you find our work interesting, please consider citing
+
+```
+Abbas Mammadov, Kaleb Mesfin Asfaw.(2023).Artificial Barber: Hair Color and Style transfer using GANs.한국정보과학회 학술발표논문집,(),487-489.
+```
 
 ## Acknowledgement
 This code is based on [Barbershop](https://github.com/ZPdesu/Barbershop).
